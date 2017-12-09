@@ -18,8 +18,8 @@
 
 (defn fetch-users
   "queries external API for users profiles and returns lazy sequence
-  in form {:name \"lastname\" :email \"usermail@example.com\"}"
-  ([] (fetch-users 1))
+  in form {:name \"lastname firstname\" :email \"usermail@example.com\"}"
+  ([] (fetch-users 5000)) ;; API call limited to 5000 users
   ([n]
    (let [api-uri (str *api-uri* "?results=" n)
          results (che/parse-string (slurp api-uri) true)]
@@ -27,5 +27,5 @@
 
 (defn -main
   [& args]
-  (println (fetch-users 3))) 
+  (println (take 3 (fetch-users)))) 
 
