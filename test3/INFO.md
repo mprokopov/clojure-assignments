@@ -6,7 +6,9 @@ You can generate the page using any tools you like. For full points you should u
 
 ## Solution
 
-This is minimalistic solution for this problem.
+This is minimalistic solution for this problem. 
+`handler` function is a web server router, so no libraries like compojure required (less dependencies is better).  `response` function serves dynamic web pages with hiccup syntax, `render-users` produces hiccup syntax for users collection from `profiles` namespace.
+
 
 run `lein run` and open in modern browser http://localhost:3000.
 
