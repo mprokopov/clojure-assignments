@@ -6,20 +6,10 @@ You can generate the page using any tools you like. For full points you should u
 
 ## Solution
 
-This is minimalistic solution for this problem. 
-`handler` function is a web server router, so no libraries like compojure required (less dependencies is better).  `response` function serves dynamic web pages with hiccup syntax, `render-users` produces hiccup syntax for users collection from `profiles` namespace.
+This is minimalistic solution for this problem. Ring web server serves JSON, JS and initial HTML page. JS was precompiled from CLJS file. JSON generated dynamically from external API and uses module from the `test2` solution.
 
+run `lein run` and open in modern browser http://localhost:3000
 
-run `lein run` and open in modern browser http://localhost:3000.
-
-
-Navigate to link provided. Go to http://localhost:3000/users to see user list.
+run `lein cljsbuild once` to build CLJS file. Please note, we serve only one JS file, so CLJS should be compiled with :optimizations :advanced.
 
 Refresh browser, new users will be fetched from external API service.
-
-
-## Testing
-
-This code is so simple, that needs no testing. 
-
-But it's decoupled enough to implement testing for `handler`, `render-users` and `response` functions in case testing is really necessary.

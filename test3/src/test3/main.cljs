@@ -13,10 +13,10 @@
        "</ul>"))
 
 (defn handler
-  "renders user-list onto #app element"
+  "renders user-list from JSON val onto #app element"
   [val]
-  (let [app (gdom/getElement "app")]
-    (gobj/set app "innerHTML" (user-list val))))
+  (let [app-element (gdom/getElement "app")]
+    (gobj/set app-element "innerHTML" (user-list val))))
 
 (GET "/users.json" {:handler handler
                     :response-format :json
