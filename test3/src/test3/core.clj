@@ -10,6 +10,8 @@
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body (hiccup/html
+          [:head
+           [:script {:type "text/javascript" :src "/main.js"}]]
           [:body body])})
 
 (defn render-users
@@ -28,7 +30,14 @@
     (= uri "/users") (-> (profiles/fetch-users 10)
                          render-users
                          response)
-    (= uri "/") (response [:a {:href "/users"} "Fetch 10 users"])
+    (= uri "/users.json") {:status 200
+                           :headers {"Content-type" "application/json"}
+                           :body (cheshire.core/generate-string
+                                  (profiles/fetch-users 10))}
+    (= uri "/") (response [:div#app [:a {:href "/users"} "Fetch 10 users"]])
+    (= uri "/main.js") {:status 200
+                        :headers {"Content-type" "application/javascript"}
+                        :body (slurp "resources/main.js")}
     :else {:status 302 :headers {"Location" "/"}}))
 
 (defn -main
