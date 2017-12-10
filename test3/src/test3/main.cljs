@@ -3,14 +3,18 @@
              [goog.dom :as gdom]
              [goog.object :as gobj]))
 
-(defn user-list [m]
+(defn user-list
+  "returns HTML string from users maps list m"
+  [m]
   (str "<ul>"
        (apply str
               (for [{:keys [name email]} m]
                 (str "<li>" name "-" email "</li>")))
-       "</ul"))
+       "</ul>"))
 
-(defn handler [val]
+(defn handler
+  "renders user-list onto #app element"
+  [val]
   (let [app (gdom/getElement "app")]
     (gobj/set app "innerHTML" (user-list val))))
 

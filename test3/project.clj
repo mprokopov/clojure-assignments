@@ -18,7 +18,6 @@
                         :source-paths ["src"]
                         :compiler {
                                    :output-to "resources/main.js"
-                                   ;; :main {{name}}.core
                                    :optimizations :advanced
                                    :pretty-print true}}]}
   :profiles {:uberjar {:aot :all}})
