@@ -1,10 +1,10 @@
 (ns test3.main
-  (:require  [ajax.core :refer [GET]]
-             [goog.dom :as gdom]
-             [goog.object :as gobj]))
+  (:require [goog.dom :as gdom]
+            [goog.net.XhrIo]
+            [goog.object :as gobj]))
 
 (defn user-list
-  "returns HTML string from users maps list m"
+  "returns HTML string from users list of maps m"
   [m]
   (str "<ul>"
        (apply str
@@ -13,12 +13,12 @@
        "</ul>"))
 
 (defn handler
-  "renders user-list from JSON val onto #app element"
-  [val]
-  (let [app-element (gdom/getElement "app")]
-    (gobj/set app-element "innerHTML" (user-list val))))
+  "renders user-list onto #app element, used as callback function"
+ [e]
+ (let [target (gobj/get e "target")
+       users-json (.getResponseJson target)
+       users (js->clj users-json :keywordize-keys true)
+       app-element (gdom/getElement "app")]
+   (gobj/set app-element "innerHTML" (user-list users))))
 
-(GET "/users.json" {:handler handler
-                    :response-format :json
-                    :format :json
-                    :keywords? true})
+(goog.net.XhrIo/send "/users.json" handler)

@@ -9,8 +9,7 @@
                  [ring/ring-core "1.6.3"]
                  [ring/ring-jetty-adapter "1.6.3"]
                  [cheshire "5.8.0"]
-                 [hiccup "1.0.5"]
-                 [cljs-ajax "0.7.3"]]
+                 [hiccup "1.0.5"]]
   :main ^:skip-aot test3.core
   :target-path "target/%s"
   :cljsbuild {
