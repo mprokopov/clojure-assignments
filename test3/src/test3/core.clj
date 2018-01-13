@@ -1,7 +1,7 @@
 (ns test3.core
   (:gen-class)
   (:require [ring.adapter.jetty :as jetty]
-            [test3.profiles :as profiles]
+            [test2.core :as profiles]
             [hiccup.core :as hiccup]))
 
 (defmulti response

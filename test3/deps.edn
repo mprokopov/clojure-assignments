@@ -1,5 +1,6 @@
 {:deps
- {ring/ring-core {:mvn/version "1.6.3"}
+ {test2/core {:local/root "../test2"}
+  ring/ring-core {:mvn/version "1.6.3"}
   ring/ring-jetty-adapter {:mvn/version "1.6.3"}
   cheshire {:mvn/version "5.8.0"}
   hiccup {:mvn/version "1.0.5"}}}
