@@ -24,9 +24,9 @@ Your function can take the number of users to return as an argument, or for full
       ({:name "sakala eeli", :email "eeli.sakala@example.com"} {:name "mercier bastien", :email "bastien.mercier@example.com"} {:name "bravo german", :email "german.bravo@example.com"})
 
 
-Use Clojure CLI Tool https://clojure.org/guides/deps_and_cli to run example with link to a local library
+Use [Clojure CLI Tool](https://clojure.org/guides/deps_and_cli) to run example with link to a local library
 
-Run `clj -m test3.core` to execute and query for 3 users profiles. 
+Run `clj -m test2.core` to execute and query for 15 users profiles. 
 
 ## Testing 
 

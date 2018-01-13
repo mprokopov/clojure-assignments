@@ -32,5 +32,12 @@
 
 (defn -main
   [& args]
-  (println (take 15 (fetch-users))))
+  (do
+    (println "Infinite sequence take 15")
+    (time
+     (println (take 15 (fetch-users))))
+
+    (println "Query exactly 15 entries")
+    (time
+     (println (fetch-users 15)))))
 
