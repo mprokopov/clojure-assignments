@@ -15,14 +15,14 @@ Your function can take the number of users to return as an argument, or for full
 
 `fetch-users` calls external API and returns lazy sequence. You can call with `bindings ` to override external API uri.
 
+      user=> (time (take 3 (test2.core/fetch-users)))
+      "Elapsed time: 0.112488 msecs"
+      ({:name "waisanen lilja", :email "lilja.waisanen@example.com"} {:name "fortin jacob", :email "jacob.fortin@example.com"} {:name "van baal pien", :email "pien.vanbaal@example.com"})
 
-       (time (take 3 (fetch-users)))
+      user=> (time (test2.core/fetch-users 3))
+      "Elapsed time: 197.648069 msecs"
+      ({:name "sakala eeli", :email "eeli.sakala@example.com"} {:name "mercier bastien", :email "bastien.mercier@example.com"} {:name "bravo german", :email "german.bravo@example.com"})
 
-       "Elapsed time: 5360.863386 msecs"
-
-       (time (fetch-users 3))
-
-       "Elapsed time: 340.970402 msecs"
 
 Use Clojure CLI Tool https://clojure.org/guides/deps_and_cli to run example with link to a local library
 
