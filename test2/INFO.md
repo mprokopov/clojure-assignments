@@ -24,8 +24,9 @@ Your function can take the number of users to return as an argument, or for full
 
        "Elapsed time: 340.970402 msecs"
 
+Use Clojure CLI Tool https://clojure.org/guides/deps_and_cli to run example with link to a local library
 
-Run `lein run` to execute and query for 3 users profiles. 
+Run `clj -m test3.core` to execute and query for 3 users profiles. 
 
 ## Testing 
 
