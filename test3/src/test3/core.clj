@@ -1,6 +1,7 @@
 (ns test3.core
   (:gen-class)
   (:require [ring.adapter.jetty :as jetty]
+            ;; [test3.profiles :as profiles]
             [test2.core :as profiles]
             [hiccup.core :as hiccup]))
 
@@ -34,7 +35,7 @@
   (case uri
     "/" (response :html [:div#app "Loading ..."])
     "/users.json" (response :json (profiles/fetch-users 10))
-    "/main.js" (response :js (slurp "resources/main.js"))
+    "/main.js" (response :js (slurp "main.js"))
     {:status 302 :headers {"Location" "/"}}))
 
 (defn -main

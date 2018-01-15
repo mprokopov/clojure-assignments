@@ -11,6 +11,7 @@
                  [cheshire "5.8.0"]
                  [hiccup "1.0.5"]]
   :main ^:skip-aot test3.core
+  :src-paths ["src" "../test2/src"]
   :target-path "target/%s"
   :cljsbuild {
               :builds [{
