@@ -2,5 +2,5 @@
  {test2/core {:local/root "../test2"}
   ring/ring-core {:mvn/version "1.6.3"}
   ring/ring-jetty-adapter {:mvn/version "1.6.3"}
-  cheshire {:mvn/version "5.8.0"}
+  org.clojure/data.json {:mvn/version "0.2.6"}
   hiccup {:mvn/version "1.0.5"}}}

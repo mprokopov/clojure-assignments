@@ -1,14 +1,16 @@
 (set-env!
- :source-paths #{"src", "../test2/src"}
- ;; :source-paths #{"src"}
+ :source-paths #{"src" "../test2/src"}
  :resource-paths #{"resources"}
  :dependencies '[[adzerk/boot-cljs "2.1.4" :scope "test"]
                  [adzerk/boot-reload "0.5.2" :scope "test"]
-                 [org.clojure/test.check "0.9.0" :scope "test"]
+                 [org.clojure/test.check "0.10.0-alpha2" :scope "test"]
+                 [pandeiro/boot-http "0.8.3" :scope "test"]
+                 ;[tonsky/boot-anybar "0.1.0" :scope "test"]
                  [ring/ring-core "1.6.3"]
                  [ring/ring-jetty-adapter "1.6.3"]
-                 [cheshire "5.8.0"]
-                 [org.clojure/clojurescript "1.9.521"]
+                 [org.clojure/data.json "0.2.6"]
+                 [org.clojure/clojurescript "1.9.946"]
+                 [org.clojure/clojure "1.8.0"]
                  [hiccup "1.0.5"]])
 
 (task-options!
@@ -17,28 +19,32 @@
       :description "FIXME: write description"}
  aot {:namespace '#{test3.core}}
  jar {:main 'test3.core}
- sift {:include #{#"\.jar$" #"main.js$"}})
+ sift {:include #{#"\.jar$"}})
 
 (require '[adzerk.boot-cljs :refer [cljs]]
          '[adzerk.boot-reload :refer [reload]]
-         '[test3.core :as app])
+         '[pandeiro.boot-http :refer [serve]]
+         ;'[tonsky.boot-anybar :refer [anybar]]
+         'test3.core)
 
 (deftask js []
-  (comp
-   (cljs :optimizations :advanced)
-   (sift)
-   (target)))
+  (comp (cljs :optimizations :advanced)
+     (target)))
+
+;; (deftask run []
+;;   (comp (with-pass-thru _ (test3.core/-main))
+;;      (cljs :optimizations :advanced)
+;;      (target)))
 
 (deftask dev []
-  (comp
-   (cljs)
-   (app/-main)))
+  (comp (serve :handler 'test3.core/handler)
+     (watch)
+     (notify)
+     (cljs :optimizations :advanced)
+     (target)))
 
 (deftask build []
   (comp (cljs :optimizations :advanced)
-     (aot)
-     (pom)
-     (uber)
-     (jar)
+     (aot) (pom) (uber) (jar)
      (sift)
      (target)))

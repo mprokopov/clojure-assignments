@@ -21,4 +21,6 @@
        app-element (gdom/getElement "app")]
    (gobj/set app-element "innerHTML" (user-list users))))
 
-(goog.net.XhrIo/send "/users.json" handler)
+(defn main []
+  (goog.net.XhrIo/send "/users.json" handler))
+

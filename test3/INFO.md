@@ -8,8 +8,6 @@ You can generate the page using any tools you like. For full points you should u
 
 This is minimalistic solution for this problem. Ring web server serves JSON, JS and initial HTML page. JS was precompiled from CLJS file. JSON generated dynamically from external API and uses module from the `test2` solution.
 
-run `lein run` and open in modern browser http://localhost:3000
-
-run `lein cljsbuild once` to build CLJS file. Please note, we serve only one JS file, so CLJS should be compiled with :optimizations :advanced.
+run `boot run` and open in modern browser http://localhost:3000
 
 Refresh browser, new users will be fetched from external API service.

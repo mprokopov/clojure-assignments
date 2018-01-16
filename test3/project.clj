@@ -8,10 +8,11 @@
                  [org.clojure/clojurescript "1.9.521"]
                  [ring/ring-core "1.6.3"]
                  [ring/ring-jetty-adapter "1.6.3"]
-                 [cheshire "5.8.0"]
+                 [org.clojure/data.json "0.2.6"]
                  [hiccup "1.0.5"]]
   :main ^:skip-aot test3.core
-  :src-paths ["src" "../test2/src"]
+  :source-paths ["src" "../test2/src"]
+  :resource-paths ["resources"]
   :target-path "target/%s"
   :cljsbuild {
               :builds [{

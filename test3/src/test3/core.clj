@@ -1,8 +1,10 @@
 (ns test3.core
   (:gen-class)
   (:require [ring.adapter.jetty :as jetty]
-            ;; [test3.profiles :as profiles]
             [test2.core :as profiles]
+            [clojure.java.shell]
+            [clojure.java.io :as io]
+            [clojure.data.json :as data.json]
             [hiccup.core :as hiccup]))
 
 (defmulti response
@@ -13,7 +15,7 @@
   ;; returns json string from body
   {:status 200
    :headers {"Content-Type" "application/json"}
-   :body (cheshire.core/generate-string body)})
+   :body (data.json/write-str body)})
 
 (defmethod response :js [type body]
   ;; returns javascript as is
@@ -34,8 +36,9 @@
   [{uri :uri}]
   (case uri
     "/" (response :html [:div#app "Loading ..."])
-    "/users.json" (response :json (profiles/fetch-users 10))
-    "/main.js" (response :js (slurp "main.js"))
+    "/users.json" (response :json (profiles/fetch-users 15))
+    "/main.js" (response :js (slurp (io/resource "main.js")))
+    "/about" (response :html [:p (:out (clojure.java.shell/sh "pwd"))])
     {:status 302 :headers {"Location" "/"}}))
 
 (defn -main
