@@ -5,6 +5,8 @@ pom.xml
 pom.xml.asc
 *.jar
 *.class
+/.cpcache
+.DS_Store
 /.lein-*
 /.nrepl-port
 .hgignore
