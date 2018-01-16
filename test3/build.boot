@@ -4,20 +4,19 @@
  :dependencies '[[adzerk/boot-cljs "2.1.4" :scope "test"]
                  [adzerk/boot-reload "0.5.2" :scope "test"]
                  [adzerk/boot-test "1.2.0" :scope "test"]
-                 ;[org.clojure/test.check "0.10.0-alpha2" :scope "test"]
                  [pandeiro/boot-http "0.8.3" :scope "test"]
                  [tonsky/boot-anybar "0.1.0" :scope "test"]
                  [ring/ring-core "1.6.3"]
                  [ring/ring-jetty-adapter "1.6.3"]
                  [org.clojure/data.json "0.2.6"]
                  [org.clojure/clojurescript "1.9.946"]
-                 [org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojure "1.9.0"]
                  [hiccup "1.0.5"]])
 
 (task-options!
  pom {:project 'test3
       :version "1.0.0-SNAPSHOT"
-      :description "FIXME: write description"}
+      :description "Qvantel Test3"}
  aot {:namespace '#{test3.core}}
  jar {:main 'test3.core}
  sift {:include #{#"\.jar$"}})
