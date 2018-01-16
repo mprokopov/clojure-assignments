@@ -1,6 +1,6 @@
 (ns test2.core
   (:gen-class)
-  (:require [cheshire.core :as che]))
+  (:require [clojure.data.json :as data.json]))
 
 (def ^:dynamic *api-uri* "https://randomuser.me/api/")
 
@@ -22,12 +22,12 @@
   if n supplied, queries only n results, otherwise returns indefinite sequence"
   ([] (repeatedly (fn []
                     (let [api-uri *api-uri*
-                          json (che/parse-string (slurp api-uri) true)
+                          json (data.json/read-str (slurp api-uri) :key-fn keyword)
                           result (first (:results json))]
                       (user-profile result)))))
   ([n]
    (let [api-uri (str *api-uri* "?results=" n)
-         results (che/parse-string (slurp api-uri) true)]
+         results (data.json/read-str (slurp api-uri) :key-fn keyword)]
      (map user-profile (results :results)))))
 
 (defn -main
