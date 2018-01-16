@@ -3,9 +3,10 @@
  :resource-paths #{"resources"}
  :dependencies '[[adzerk/boot-cljs "2.1.4" :scope "test"]
                  [adzerk/boot-reload "0.5.2" :scope "test"]
-                 [org.clojure/test.check "0.10.0-alpha2" :scope "test"]
+                 [adzerk/boot-test "1.2.0" :scope "test"]
+                 ;[org.clojure/test.check "0.10.0-alpha2" :scope "test"]
                  [pandeiro/boot-http "0.8.3" :scope "test"]
-                 ;[tonsky/boot-anybar "0.1.0" :scope "test"]
+                 [tonsky/boot-anybar "0.1.0" :scope "test"]
                  [ring/ring-core "1.6.3"]
                  [ring/ring-jetty-adapter "1.6.3"]
                  [org.clojure/data.json "0.2.6"]
@@ -23,8 +24,9 @@
 
 (require '[adzerk.boot-cljs :refer [cljs]]
          '[adzerk.boot-reload :refer [reload]]
+         '[adzerk.boot-test :refer [test]]
          '[pandeiro.boot-http :refer [serve]]
-         ;'[tonsky.boot-anybar :refer [anybar]]
+         '[tonsky.boot-anybar :refer [anybar]]
          'test3.core)
 
 (deftask js []
@@ -42,6 +44,13 @@
      (notify)
      (cljs :optimizations :advanced)
      (target)))
+
+(deftask testing []
+  (set-env! :source-paths #(conj % "test"))
+  (comp (watch)
+     (anybar)
+     (notify :audible true)
+     (test)))
 
 (deftask build []
   (comp (cljs :optimizations :advanced)
