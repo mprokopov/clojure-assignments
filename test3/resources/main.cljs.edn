@@ -1,3 +1,0 @@
-{:require  []
- :init-fns [test3.main/main]
- :compiler-options {}}

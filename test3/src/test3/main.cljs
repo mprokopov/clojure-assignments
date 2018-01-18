@@ -1,26 +1,44 @@
 (ns test3.main
   (:require [goog.dom :as gdom]
-            [goog.net.XhrIo]
-            [goog.object :as gobj]))
+            [goog.net.XhrIo :as xhr]
+            [goog.object :as gobj]
+            [rum.core :as rum]))
 
-(defn user-list
-  "returns HTML string from users list of maps m"
-  [m]
-  (str "<ul>"
-       (apply str
-              (for [{:keys [name email]} m]
-                (str "<li>" name "-" email "</li>")))
-       "</ul>"))
+(def ^:dynamic *api-uri* "/users.json")
+
+(defonce users (atom []))
 
 (defn handler
-  "renders user-list onto #app element, used as callback function"
- [e]
- (let [target (gobj/get e "target")
-       users-json (.getResponseJson target)
-       users (js->clj users-json :keywordize-keys true)
-       app-element (gdom/getElement "app")]
-   (gobj/set app-element "innerHTML" (user-list users))))
+  "resets users atom with data from JSON e"
+  [e]
+  (let [target (gobj/get e "target")
+        users-json (.getResponseJson target)
+        data (js->clj users-json :keywordize-keys true)]
+    (reset! users data)))
+
+(defn load-users
+  "loads user list from *api-uri*"
+  []
+  (xhr/send *api-uri* handler))
+
+(rum/defc users-list [state]
+  [:.users
+   [:h2 "Contacts list"]
+   [:button {:on-click #(load-users) } "Reload"]
+   [:ul
+    (for [{:keys [name email]} state]
+      [:li {:key email} name "-" email])]])
 
 (defn main []
-  (goog.net.XhrIo/send "/users.json" handler))
+  (let [app-element (gdom/getElement "app")]
+    ;; initial render
+    (rum/mount (users-list) app-element)
+    ;; render upon state updates
+    (add-watch users
+               :user-list-update
+               (fn [_ _ _ new-state]
+                 (rum/mount (users-list new-state) app-element)))
+    ;; toggle data fetch
+    (load-users)))
 
+(main)
